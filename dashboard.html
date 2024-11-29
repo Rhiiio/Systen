@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PLMun Engagement System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="plmun.png" alt="PLMun Logo">
+        </div>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard">
+        <div class="container">
+            <h2>Welcome, Student!</h2>
+
+            <!-- Points and Rewards Section -->
+            <div class="points-rewards">
+                <h3>Your Points: 200</h3>
+                <p>Accumulate points by participating in events, workshops, and activities. Redeem rewards once you reach certain milestones.</p>
+                <a href="redeem_rewards.html" class="btn-secondary">Redeem Rewards</a>
+            </div>
+
+            <!-- Course Selection -->
+            <div class="course-selection">
+                <h3>Select Your Course</h3>
+                <form id="course-form">
+                    <select id="course" name="course" onchange="loadEvents()">
+                        <option value="bsit">BSIT</option>
+                        <option value="crim">CRIM</option>
+                        <option value="bsbm">BSBM</option>
+                        <option value="engg">Engineering</option>
+                    </select>
+                </form>
+            </div>
+
+            <!-- Suggested Events -->
+            <div class="events-section">
+                <h3>Suggested Events Based on Your Course</h3>
+                <div id="events-container" class="events">
+                    <p>Please select a course to view related events.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Pamantasan ng Lungsod ng Muntinlupa. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript to dynamically load events based on course -->
+    <script>
+        const courseEvents = {
+            bsit: [
+                { name: "Web Development Workshop", description: "Learn web development and programming." },
+                { name: "Coding Bootcamp", description: "Intensive coding bootcamp for beginners." }
+            ],
+            crim: [
+                { name: "Criminal Law Seminar", description: "Learn about criminal laws and legal procedures." }
+            ],
+            bsbm: [
+                { name: "Business Management Lecture", description: "Gain insights into business management strategies." }
+            ],
+            engg: [
+                { name: "Engineering Design Competition", description: "Create innovative engineering designs." }
+            ]
+        };
+
+        function loadEvents() {
+            const course = document.getElementById("course").value;
+            const eventsContainer = document.getElementById("events-container");
+            eventsContainer.innerHTML = "";
+            if (courseEvents[course]) {
+                courseEvents[course].forEach(event => {
+                    const eventElement = document.createElement("div");
+                    eventElement.classList.add("event");
+                    eventElement.innerHTML = `
+                        <h4>${event.name}</h4>
+                        <p>${event.description}</p>
+                        <button class="btn-primary">Join Event</button>
+                    `;
+                    eventsContainer.appendChild(eventElement);
+                });
+            }
+        }
+
+        loadEvents();
+    </script>
+</body>
+</html>
